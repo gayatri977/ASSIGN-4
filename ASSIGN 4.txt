@@ -1,0 +1,221 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct abc
+{
+    int roll;
+    char name[10];
+    int prn;
+    struct abc *next;
+    
+};
+  void  create(struct abc *head)
+   {      
+       struct abc *q =head;
+       struct abc *temp;
+        int i,j,k,n;
+       printf("\nEnter number of members:\n");
+       scanf("%d",&n);
+       printf("\nEnter data of president\n");
+       printf("Name\n");
+        scanf("%s",head->name);
+       
+        printf("Roll no:\n");
+        scanf("%d",&head->roll);
+        printf("PRN:\n");
+        scanf("%d",&head->prn);
+        
+        for(i=1;i<n;i++)
+        {
+          temp = (struct abc*) malloc(sizeof(struct abc));
+
+         printf("Name\n");
+        scanf("%s",temp->name);
+        
+        printf("Roll no:\n");
+        scanf("%d",&temp->roll);
+        printf("PRN:\n");
+        scanf("%d",&temp->prn); 
+             q->next =temp;
+             q=temp;
+              q->next=NULL;
+        }
+  }
+  struct abc * addp(struct abc *head)
+   {
+       
+       struct abc *new= (struct abc *)malloc(sizeof(struct abc));
+       printf("\nEnter data of president\n");
+       printf("Name\n");
+        scanf("%s",new->name);
+       printf("Roll no:\n");
+        scanf("%d",&new->roll);
+        printf("PRN:\n");
+        scanf("%d",&new->prn);
+        new->next= head;
+        head=new;
+        return head;
+   }
+  void addm(struct abc *head) 
+  {     int i=0,j,k,c,index;
+      printf("\nAdd member at index:\n");
+      scanf("%d",&index);
+      struct abc *ptr=head;
+      struct abc *new=(struct abc *)malloc(sizeof(struct abc));
+      while(i!=(index-1))
+      {
+          ptr=ptr->next;
+          i++;
+      }
+       
+       printf("Name\n");
+        scanf("%s",new->name);
+       printf("Roll no:\n");
+        scanf("%d",&new->roll);
+        printf("PRN:\n");
+        scanf("%d",&new->prn);
+        new->next=ptr->next;
+        ptr->next=new;
+
+
+  }
+  void adds(struct abc *head)
+  {
+      struct abc *new=(struct abc *)malloc(sizeof(struct abc));
+      struct abc *ptr=head;
+      while(ptr->next!=NULL)
+      {
+          ptr=ptr->next;
+      }
+      printf("Name\n");
+        scanf("%s",new->name);
+       printf("Roll no:\n");
+        scanf("%d",&new->roll);
+        printf("PRN:\n");
+        scanf("%d",&new->prn);
+      ptr->next=new;
+      new->next =NULL;
+
+  }
+  struct abc * delp(struct abc *head)
+   {
+        
+        struct abc *p=head;
+        head=head->next;
+        free(p);
+        return head;
+ }
+ void delm(struct abc *head)
+   {    int index,i=0;
+   int c;
+   struct abc *p;
+        struct abc *q;
+   
+        printf("\nEnter index\n");
+       scanf("%d",&index);
+        p=head;
+          while(i!=(index-1))
+          {
+              p=p->next;
+              i++;
+          }
+          q=p->next;
+        p->next=q->next;
+        free(q);
+   
+
+        
+ }
+ void dels(struct abc *head)
+ {
+     int c,pn;
+  
+     
+     struct abc *p= head;
+     struct abc *q=head->next;
+     while(q->next!=NULL)
+     {
+         q=q->next;
+         p=p->next;
+     }
+     p->next=NULL;
+     free(q);
+     
+     
+  
+ }
+ void count(struct abc *head)
+ {
+    struct abc *p=head;
+    int num=0;
+    while(p!=NULL)
+    { num++;
+      p=p->next;
+    }
+    printf("\nNumber of members are %d",num);
+
+ }
+ void  display(struct abc *head)
+ {
+     struct abc *p=head;
+     printf("ROLL\tNAME\tPRN\n");
+   while(p!=NULL)
+   {
+       printf("%d\t   %s\t    %d\n",p->roll,p->name,p->prn);
+       p=p->next;
+   }
+ }
+ struct abc* reverse(struct abc* head)
+    {
+        if (head==NULL || head->next==NULL) 
+          { return head; }
+     struct abc* p = reverse(head->next);
+        head->next->next=head;
+       head->next=NULL;
+       return p;
+    }
+int main()
+{
+   struct abc *head=(struct abc*) malloc(sizeof(struct abc));
+    int c;
+   
+    do
+    {
+         printf("\n1)Create grp of members\n2)Add president\n3)ADD MEMBER\n4)Add secretary\n5)Delete president\n6)Delete members\n7)Delete SECRETARY\n8)Compute total number of members\n9)reverse\n10)Display\n");
+        scanf("%d",&c);
+        switch(c)
+        {
+            case 1:
+                create(head);
+                break;
+            case 2:
+                 head=addp(head);
+                 break;
+            case 3:
+                 addm(head);
+                 break;
+            case 4:
+                  adds(head);
+                  break;
+            case 5:
+                  head=  delp(head);
+                  break;
+            case 6:
+                delm(head);
+                break;
+            case 7:
+                dels(head);
+                 break;
+            case 8:
+                 count(head);
+                 break;
+            case 9:
+            head=reverse(head);
+                  break;
+            case 10:
+                display(head);
+                break;
+
+        }
+    }while(c!=0);
+
+}
